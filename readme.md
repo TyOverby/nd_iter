@@ -28,6 +28,8 @@ Way simpler, way flatter, and most importantly you can easily define a function
 that returns the result of your call to `iter_3d`, something that would be
 *way* harder to do in the nested for-loop example.
 
+## Example
+
 ```rust
 extern crate iter_nd;
 use iter_nd::iter_2d;
