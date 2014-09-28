@@ -1,4 +1,4 @@
-# Range_nd
+# range_nd
 ### 2d and 3d range functions in Rust
 
 ```rust
