@@ -1,49 +1,48 @@
-# range_nd
-### 2d and 3d range functions in Rust
+# iter_nd
+### Create 2 and 3 dimensional iterations
 
+Have you ever wanted to iterate through 2 or 3 dimensional space?  You are
+probably stuck writing something like this:
 ```rust
-// 2d
-pub fn range_2d<A: ...>(x_rng: (A, A), y_rng: (A, A)) -> ...
-pub fn range_2d_step<A: ...>(x_rng: (A, A, A), y_rng: (A, A, A)) -> ...
-pub fn range_2d_inclusive<A: ...>(x_rng: (A, A), y_rng: (A, A)) -> ...
-pub fn range_2d_step_inclusive<A: ...>(x_rng: (A, A, A), y_rng: (A, A, A)) ->...
-
-// 3d
-pub fn range_3d<A: ...>(x_rng: (A, A), y_rng: (A, A), z_rng: (A, A)) -> ...
-pub fn range_3d_step<A: ...>(x_rng: (A, A, A), y_rng: (A, A, A), z_rng: (A, A, A)) -> ...
-pub fn range_3d_inclusive<A: ...>(x_rng: (A, A), y_rng: (A, A), z_rng: (A, A)) -> ...
-pub fn range_3d_step_inclusive<A: ...>(x_rng: (A, A, A), y_rng: (A, A, A), z_rng: (A, A, A)) ->...
-
+for x in range(0, n) {
+    for y in range(0, n) {
+        for z in range(0, n) {
+            do_something(x, y, z);
+        }
+    }
+}
 ```
 
-## Examples
-### 2d
+This is a common enough pattern for me that I wrote `iter_nd` to squash
+iterators.
+
+With `iter_nd` you could write the above code as:
+
 ```rust
-extern crate range_nd;
-use range_nd::range_2d;
-
-fn main() {
-    // Iterate through the 2d range with x from [1 to 3) and
-    // with y from [3, 5).
-    for (x, y) in range_2d((1u, 3), (3, 5)) {
-        println!("({}, {})", x, y);
-    }
-    // (1, 3) (1, 4) (2, 3) (2, 4)
+for (x, y, z) in iter_3d(range(0,n), range(0,n), range(0,n)) {
+    do_something(x, y, z);
 }
-
 ```
-### 3d
+
+Way simpler, way flatter, and most importantly you can easily define a function
+that returns the result of your call to `iter_3d`, something that would be
+*way* harder to do in the nested for-loop example.
+
 ```rust
-extern crate range_nd;
-use range_nd::range_3d;
+extern crate iter_nd;
+use iter_nd::iter_2d;
+use iter_nd::iter_3d;
+use std::iter::range_inclusive;
 
 fn main() {
-    // Iterate through the 3d range with x from [1 to 3) and
-    // with y from [3, 5) and z from [10, 12).
-    for (x, y, z) in range_3d((1u, 3), (3, 5), (10, 12)) {
-        println!("({}, {}, {})", x, y, z);
+    for (x, y) in iter_2d(range(0u, 2), range_inclusive(2u, 5)) {
+        println!("{}, {}", x, y);
     }
-    // (1, 3, 10) (1, 3, 11) (1, 4, 10) (1, 4, 11) ...
+
+    for (x, y, z) in iter_3d(range(0u, 2), range(2u, 4), range(0u, 2)) {
+        println!("{}, {}, {}", x, y, z);
+    }
 }
+
 
 ```

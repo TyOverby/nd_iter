@@ -1,23 +1,31 @@
-# range_nd
-### 2d and 3d range functions in Rust
+# iter_nd
+### Create 2 and 3 dimensional iterations
 
+Have you ever wanted to iterate through 2 or 3 dimensional space?  You are
+probably stuck writing something like this:
 ```rust
-// 2d
-pub fn range_2d<A: ...>(x_rng: (A, A), y_rng: (A, A)) -> ...
-pub fn range_2d_step<A: ...>(x_rng: (A, A, A), y_rng: (A, A, A)) -> ...
-pub fn range_2d_inclusive<A: ...>(x_rng: (A, A), y_rng: (A, A)) -> ...
-pub fn range_2d_step_inclusive<A: ...>(x_rng: (A, A, A), y_rng: (A, A, A)) ->...
-
-// 3d
-pub fn range_3d<A: ...>(x_rng: (A, A), y_rng: (A, A), z_rng: (A, A)) -> ...
-pub fn range_3d_step<A: ...>(x_rng: (A, A, A), y_rng: (A, A, A), z_rng: (A, A, A)) -> ...
-pub fn range_3d_inclusive<A: ...>(x_rng: (A, A), y_rng: (A, A), z_rng: (A, A)) -> ...
-pub fn range_3d_step_inclusive<A: ...>(x_rng: (A, A, A), y_rng: (A, A, A), z_rng: (A, A, A)) ->...
-
+for x in range(0, n) {
+    for y in range(0, n) {
+        for z in range(0, n) {
+            do_something(x, y, z);
+        }
+    }
+}
 ```
 
-## Examples
-### 2d
-^code(examples/d2.rs)
-### 3d
-^code(examples/d3.rs)
+This is a common enough pattern for me that I wrote `iter_nd` to squash
+iterators.
+
+With `iter_nd` you could write the above code as:
+
+```rust
+for (x, y, z) in iter_3d(range(0,n), range(0,n), range(0,n)) {
+    do_something(x, y, z);
+}
+```
+
+Way simpler, way flatter, and most importantly you can easily define a function
+that returns the result of your call to `iter_3d`, something that would be
+*way* harder to do in the nested for-loop example.
+
+^code(examples/gen.rs)
