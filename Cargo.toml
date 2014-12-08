@@ -3,3 +3,5 @@
 name = "nd_iter"
 version = "0.0.1"
 authors = ["Ty Overby <ty@pre-alpha.com>"]
+license = "MIT"
+description = "A way to create 2 and 3 dimensional iterators."

@@ -1,4 +1,4 @@
-# iter_nd
+# `nd_iter`
 ### Create 2 and 3 dimensional iterations
 
 Have you ever wanted to iterate through 2 or 3 dimensional space?  You are
@@ -31,9 +31,9 @@ that returns the result of your call to `iter_3d`, something that would be
 ## Example
 
 ```rust
-extern crate iter_nd;
-use iter_nd::iter_2d;
-use iter_nd::iter_3d;
+extern crate nd_iter;
+use nd_iter::iter_2d;
+use nd_iter::iter_3d;
 use std::iter::range_inclusive;
 
 fn main() {

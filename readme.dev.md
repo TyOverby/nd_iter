@@ -1,4 +1,4 @@
-# iter_nd
+# `nd_iter`
 ### Create 2 and 3 dimensional iterations
 
 Have you ever wanted to iterate through 2 or 3 dimensional space?  You are
