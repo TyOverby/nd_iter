@@ -1,5 +1,5 @@
 [package]
 
-name = "iter_nd"
+name = "nd_iter"
 version = "0.0.1"
 authors = ["Ty Overby <ty@pre-alpha.com>"]

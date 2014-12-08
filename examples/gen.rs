@@ -1,6 +1,6 @@
-extern crate iter_nd;
-use iter_nd::iter_2d;
-use iter_nd::iter_3d;
+extern crate nd_iter;
+use nd_iter::iter_2d;
+use nd_iter::iter_3d;
 use std::iter::range_inclusive;
 
 fn main() {
