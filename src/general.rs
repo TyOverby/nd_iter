@@ -1,5 +1,5 @@
 
-pub struct IteratorContainer2d<A, AIter, BIter> {
+pub struct IteratorContainer2d<A, B, AIter, BIter> {
     x: AIter,
     y: BIter,
 
@@ -10,7 +10,7 @@ pub struct IteratorContainer2d<A, AIter, BIter> {
 impl <
 A: Clone, AIter: Iterator<A>,
 B, BIter: Iterator<B> + Clone> Iterator<(A, B)>
-for IteratorContainer2d<A, AIter, BIter> {
+for IteratorContainer2d<A, B, AIter, BIter> {
     fn next(&mut self) -> Option<(A, B)> {
         let y_val = match self.y.next() {
             Some(y) => Some(y),
@@ -34,7 +34,7 @@ for IteratorContainer2d<A, AIter, BIter> {
 }
 
 pub fn iter_2d<A: Clone, AIter: Iterator<A>, B, BIter: Iterator<B> + Clone>
-(a_iter: AIter, b_iter: BIter) -> IteratorContainer2d<A, AIter, BIter> {
+(a_iter: AIter, b_iter: BIter) -> IteratorContainer2d<A, B, AIter, BIter> {
     IteratorContainer2d {
         x: a_iter,
         y: b_iter.clone(),
@@ -48,7 +48,7 @@ pub fn iter_2d<A: Clone, AIter: Iterator<A>, B, BIter: Iterator<B> + Clone>
 
 
 
-pub struct IteratorContainer3d<A, B, AIter, BIter, CIter> {
+pub struct IteratorContainer3d<A, B, C, AIter, BIter, CIter> {
     x: AIter,
     y: BIter,
     z: CIter,
@@ -64,7 +64,7 @@ impl <
 A: Clone, AIter: Iterator<A>,
 B: Clone, BIter: Iterator<B> + Clone,
 C,       CIter: Iterator<C> + Clone> Iterator<(A, B, C)>
-for IteratorContainer3d<A, B, AIter, BIter, CIter> {
+for IteratorContainer3d<A, B, C, AIter, BIter, CIter> {
     fn next(&mut self) -> Option<(A, B, C)>{
         let z_val = match self.z.next() {
             Some(z) => Some(z),
@@ -106,7 +106,7 @@ pub fn iter_3d
 <A: Clone, AIter: Iterator<A>,
 B: Clone, BIter: Iterator<B> + Clone,
 C,       CIter: Iterator<C> + Clone>
-(a_iter: AIter, b_iter: BIter, c_iter: CIter) -> IteratorContainer3d<A, B, AIter, BIter, CIter> {
+(a_iter: AIter, b_iter: BIter, c_iter: CIter) -> IteratorContainer3d<A, B, C, AIter, BIter, CIter> {
     IteratorContainer3d {
         x: a_iter,
         y: b_iter.clone(),
