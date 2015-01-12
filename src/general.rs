@@ -7,10 +7,13 @@ pub struct IteratorContainer2d<A, B, AIter, BIter> {
     y_start: BIter
 }
 
-impl <
-A: Clone, AIter: Iterator<A>,
-B, BIter: Iterator<B> + Clone> Iterator<(A, B)>
-for IteratorContainer2d<A, B, AIter, BIter> {
+
+impl <A, B, AIter, BIter> Iterator for IteratorContainer2d<A, B, AIter, BIter>
+where A: Clone,
+      AIter: Iterator<Item=A>,
+      BIter: Iterator<Item=B> + Clone {
+    type Item = (A, B);
+
     fn next(&mut self) -> Option<(A, B)> {
         let y_val = match self.y.next() {
             Some(y) => Some(y),
@@ -33,8 +36,14 @@ for IteratorContainer2d<A, B, AIter, BIter> {
     }
 }
 
-pub fn iter_2d<A: Clone, AIter: Iterator<A>, B, BIter: Iterator<B> + Clone>
-(a_iter: AIter, b_iter: BIter) -> IteratorContainer2d<A, B, AIter, BIter> {
+
+//pub fn iter_2d<A: Clone, AIter: Iterator<A>, B, BIter: Iterator<B> + Clone>
+//(a_iter: AIter, b_iter: BIter) -> IteratorContainer2d<A, B, AIter, BIter> {
+pub fn iter_2d<A, B, AIter, BIter> (a_iter: AIter, b_iter: BIter) ->
+IteratorContainer2d<A, B, AIter, BIter>
+where A: Clone,
+      AIter: Iterator<Item=A>,
+      BIter: Iterator<Item=B> + Clone {
     IteratorContainer2d {
         x: a_iter,
         y: b_iter.clone(),
@@ -60,11 +69,14 @@ pub struct IteratorContainer3d<A, B, C, AIter, BIter, CIter> {
     z_start: CIter
 }
 
-impl <
-A: Clone, AIter: Iterator<A>,
-B: Clone, BIter: Iterator<B> + Clone,
-C,       CIter: Iterator<C> + Clone> Iterator<(A, B, C)>
-for IteratorContainer3d<A, B, C, AIter, BIter, CIter> {
+impl <A, B, C, AIter, BIter, CIter> Iterator
+for IteratorContainer3d<A, B, C, AIter, BIter, CIter>
+where A: Clone,
+      B: Clone,
+      AIter: Iterator<Item=A>,
+      BIter: Iterator<Item=B> + Clone,
+      CIter: Iterator<Item=C> + Clone {
+    type Item = (A, B, C);
     fn next(&mut self) -> Option<(A, B, C)>{
         let z_val = match self.z.next() {
             Some(z) => Some(z),
@@ -102,11 +114,13 @@ for IteratorContainer3d<A, B, C, AIter, BIter, CIter> {
 }
 
 
-pub fn iter_3d
-<A: Clone, AIter: Iterator<A>,
-B: Clone, BIter: Iterator<B> + Clone,
-C,       CIter: Iterator<C> + Clone>
-(a_iter: AIter, b_iter: BIter, c_iter: CIter) -> IteratorContainer3d<A, B, C, AIter, BIter, CIter> {
+pub fn iter_3d<A, B, C, AIter, BIter, CIter>
+(a_iter: AIter, b_iter: BIter, c_iter: CIter) -> IteratorContainer3d<A, B, C, AIter, BIter, CIter>
+where A: Clone,
+      B: Clone,
+      BIter: Iterator<Item=B> + Clone,
+      CIter: Iterator<Item=C> + Clone
+  {
     IteratorContainer3d {
         x: a_iter,
         y: b_iter.clone(),
