@@ -1,10 +1,12 @@
+use std::marker::PhantomData;
 
 pub struct IteratorContainer2d<A, B, AIter, BIter> {
     x: AIter,
     y: BIter,
 
     x_last: Option<A>,
-    y_start: BIter
+    y_start: BIter,
+    _phantom: PhantomData<B>
 }
 
 
@@ -49,7 +51,8 @@ where A: Clone,
         y: b_iter.clone(),
 
         x_last: None,
-        y_start: b_iter
+        y_start: b_iter,
+        _phantom: PhantomData
     }
 }
 
@@ -66,7 +69,8 @@ pub struct IteratorContainer3d<A, B, C, AIter, BIter, CIter> {
     y_last: Option<B>,
 
     y_start: BIter,
-    z_start: CIter
+    z_start: CIter,
+    _phantom: PhantomData<C>
 }
 
 impl <A, B, C, AIter, BIter, CIter> Iterator
@@ -129,6 +133,7 @@ where A: Clone,
         x_last: None,
         y_last: None,
         y_start: b_iter,
-        z_start: c_iter
+        z_start: c_iter,
+        _phantom: PhantomData
     }
 }
